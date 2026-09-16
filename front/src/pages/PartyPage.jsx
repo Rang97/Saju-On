@@ -64,18 +64,18 @@ function SortDropdown({ placeholder, options, sortBy, onChange }) {
   return (
     <Listbox value={selected ? selected.value : ""} onChange={onChange}>
       <ListboxButton
-        className="w-40 px-4 py-1.5 rounded text-sm font-medium outline-none text-left whitespace-nowrap overflow-hidden text-ellipsis"
+        className="w-40 px-4 py-3 rounded-sm text-sm font-medium outline-none text-left whitespace-nowrap overflow-hidden text-ellipsis bg-[#261cc1]/20 border border-[#261cc1]/30"
         style={{
-          background: "#0f0f1a",
           color: selected ? "#F1FF5E" : "#c0c0e0",
         }}
       >
         {selected ? selected.label : placeholder}
       </ListboxButton>
+
       <ListboxOptions
         transition
         anchor="bottom start"
-        className="mt-1 rounded text-sm overflow-hidden z-10 origin-top outline-none transition duration-150 ease-out data-[closed]:opacity-0 data-[closed]:-translate-y-2"
+        className="rounded-sm text-sm overflow-hidden z-10 origin-top outline-none transition duration-150 ease-out data-[closed]:opacity-0 data-[closed]:-translate-y-2"
         style={{
           background: "#0f0f1a",
         }}
@@ -172,29 +172,18 @@ export default function PartyPage() {
       {/* 헤더 */}
       <div className="flex mb-10 flex-wrap gap-4">
         <div className="justify-content-center">
-          <p
-            className="text-xs uppercase tracking-widest mb-2"
-            style={{ color: "#5690CC" }}
-          >
+          <p className="text-xs uppercase tracking-widest mb-2 font-bold text-[#3A9AFF]">
             파티를 찾아 참여해 보세요!
           </p>
-          <h1
-            className="text-4xl font-bold"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
-          >
+          <h1 className="text-4xl font-extrabold tracking-tight font-['Rajdhani'] text-white">
             파티 모집
           </h1>
         </div>
       </div>
 
       {/* 정렬 */}
-      <div
-        className="flex items-center gap-3 mb-8"
-        style={{
-          color: "#c0c0e0",
-        }}
-      >
-        <div className="flex items-center gap-3 mb-8">
+      <div className="flex items-center gap-3 mb-8">
+        <div className="flex items-center gap-3 mb-4">
           <SortDropdown
             placeholder="오행"
             options={elementSortOptions}
@@ -214,10 +203,9 @@ export default function PartyPage() {
             onChange={handleSortChange}
           />
           <button
-            className="px-4 py-1.5 rounded text-sm font-medium"
+            className="px-4 py-3 rounded-sm text-sm font-medium transition-all bg-[#261cc1]/20 border border-[#261cc1]/3"
             onClick={() => setAscending((prev) => !prev)}
             style={{
-              background: "#0f0f1a",
               color: ascending ? "#F1FF5E" : "#c0c0e0",
               transition: "all 0.3s ease-in 0s",
             }}
@@ -232,8 +220,9 @@ export default function PartyPage() {
               <BiSolidUpArrow size={16} />
             </span>
           </button>
+
           <button
-            className="brand-gradient-btn px-5 py-2 rounded-xl text-sm font-semibold text-white ml-35 shrink-0"
+            className="px-5 py-2.5 rounded-sm text-sm font-bold bg-[#F1FF5E] text-[#06040f] hover:transition-all hover:brightness-110 hover:cursor-pointer"
             onClick={() => navigate("/party/create")}
           >
             파티 생성
@@ -259,12 +248,12 @@ export default function PartyPage() {
             return (
               <div
                 key={party.partyId}
-                className="party-card relative flex flex-col overflow-hidden rounded-2x1 border border-[rgba(58,154,255,0.15)] shadow-[0_2px_10px_rgba(0,0,0,0.3)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(58,154,255,0.2)]"
+                className="party-card relative flex flex-col overflow-hidden rounded-sm border border-[rgba(58,154,255,0.15)] shadow-[0_2px_10px_rgba(0,0,0,0.3)] transition-all duration-200 hover:-translate-y-1"
                 style={{
                   minHeight: "260px",
                   backgroundImage: party.coverUrl
                     ? `linear-gradient(to bottom right, rgba(7,7,14,0.9) 0%, rgba(7,7,14,0.55) 55%, rgba(7,7,14,0.15) 100%), url(${party.coverUrl})`
-                    : "linear-gradient(160deg, #1C0770 0%, #0f0f1a 70%)",
+                    : "linear-gradient(40deg, #1C0770 0%, #0f0f1a 70%)",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
@@ -291,8 +280,8 @@ export default function PartyPage() {
                     y="1"
                     width="calc(100% - 2px)"
                     height="calc(100% - 2px)"
-                    rx="16"
-                    ry="16"
+                    rx="8"
+                    ry="8"
                     pathLength="100"
                     fill="none"
                     stroke={`url(#cardGradient-${party.partyId})`}
@@ -304,7 +293,7 @@ export default function PartyPage() {
                   {/* 게임 배지 + 궁합유형 태그 + 시간 */}
                   <div className="flex items-center gap-2 flex-wrap ">
                     <span
-                      className="text-xs font-semibold px-2 py-0.5 rounded"
+                      className="text-xs font-semibold px-2 py-1 rounded-sm"
                       style={{
                         background: "rgba(15,15,26,0.85)",
                         color: "#3A9AFF",
@@ -314,7 +303,7 @@ export default function PartyPage() {
                       {party.gameName}
                     </span>
                     <span
-                      className="text-xs font-semibold px-2 py-0.5 rounded"
+                      className="text-xs font-semibold px-2 py-1 rounded-sm"
                       style={{
                         background: "rgba(15,15,26,0.85)",
                         color: "#F1FF5E",
@@ -323,10 +312,7 @@ export default function PartyPage() {
                     >
                       {chemistryLabels[party.chemistryType]}
                     </span>
-                    <span
-                      className="ml-auto text-xs"
-                      style={{ color: "rgba(255,255,255,0.75)" }}
-                    >
+                    <span className="ml-auto text-xs text-gray-300">
                       {getRelativeTime(party.createdAt)}
                     </span>
                   </div>
@@ -336,8 +322,6 @@ export default function PartyPage() {
                     className="font-bold text-lg leading-snug"
                     style={{
                       fontFamily: "'Rajdhani', sans-serif",
-                      color: "#fff",
-                      textShadow: "0 2px 8px rgba(0,0,0,0.6)",
                     }}
                   >
                     {party.title}
@@ -360,18 +344,12 @@ export default function PartyPage() {
                           />
                         ),
                       )}
-                      <span
-                        className="text-xs ml-1"
-                        style={{ color: "rgba(255,255,255,0.75)" }}
-                      >
+                      <span className="text-xs ml-1 text-gray-300">
                         {party.nowMemberCount}/{party.maxMemberCount}
                       </span>
                     </div>
 
-                    <span
-                      className="text-xs"
-                      style={{ color: "rgba(255,255,255,0.5)" }}
-                    >
+                    <span className="text-xs text-gray-300">
                       {party.hostNickname}
                     </span>
                   </div>
@@ -382,7 +360,7 @@ export default function PartyPage() {
                       isJoined ? setActiveChatParty(party) : handleJoin(party)
                     }
                     disabled={isFull && !isJoined}
-                    className={`w-full py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                    className={`w-full py-2.5 rounded-sm text-sm font-semibold transition-all ${
                       !isJoined && !isFull
                         ? "brand-gradient-btn text-white"
                         : ""
@@ -390,9 +368,8 @@ export default function PartyPage() {
                     style={
                       isJoined
                         ? {
-                            background: "rgba(241,255,94,0.12)",
-                            color: "#F1FF5E",
-                            border: "1px solid rgba(241,255,94,0.3)",
+                            background: "#F1FF5E",
+                            color: "#06040f",
                           }
                         : isFull
                           ? {
