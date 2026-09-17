@@ -319,7 +319,9 @@ export default function PartyChatModal({ party, onClose, onLeave, onDelete }) {
                         <span className="text-xs font-semibold">
                           {ELEMENT_LABELS[key]}
                         </span>
-                        <span className="text-xs">{total}</span>
+                        <span className="text-xs">
+                          {Number.isFinite(total) ? Number(total.toFixed(1)) : "-"}
+                        </span>
                       </div>
                     );
                   })}
