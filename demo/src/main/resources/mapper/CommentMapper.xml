@@ -5,6 +5,7 @@
         SELECT
         c.comment_id AS commentId,
         c.post_id    AS postId,
+        c.writer_id  AS writerId,
         u.nickname   AS writerNickname,
         c.content    AS content,
         c.created_at AS createdAt

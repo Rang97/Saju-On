@@ -78,6 +78,7 @@ public class PostService {
 
         return PostDetailResponse.builder()
                 .postId(baseDetail.getPostId())
+                .writerId(baseDetail.getWriterId())
                 .title(baseDetail.getTitle())
                 .content(baseDetail.getContent())
                 .writerNickname(baseDetail.getWriterNickname())
