@@ -9,6 +9,7 @@ import {
 } from "../features/board/hooks/useComments";
 import { getComments } from "../features/board/api/commentApi";
 import { useDeletePost } from "../features/board/hooks/usePostMutations";
+import { useBlockUser } from "../features/block/hooks/useBlockUser";
 import MoreActionsMenu from "../features/board/components/MoreActionsMenu";
 import { formatRelativeTime } from "../features/board/utils/formatDate";
 import { useAuthStore } from "../store/authStore";
@@ -46,6 +47,13 @@ export default function BoardDetailPage() {
   const { removeComment } = useCommentDelete(postId, refreshComments);
 
   const { removePost, isDeleting: isDeletingPost } = useDeletePost();
+
+  const { block: blockPostAuthor } = useBlockUser(() => {
+    alert("차단했습니다. 이 사용자의 글은 더 이상 보이지 않습니다.");
+    navigate("/board");
+  });
+
+  const { block: blockCommentAuthor } = useBlockUser(refreshComments);
 
   if (isLoading) {
     return (
@@ -86,6 +94,41 @@ export default function BoardDetailPage() {
           ? "본인이 작성한 글만 삭제할 수 있습니다."
           : "삭제에 실패했습니다.",
       );
+    }
+  };
+
+  const handleBlockPostAuthor = async () => {
+    // 1. post 객체에서 실제 존재하는 작성자 ID 필드를 찾습니다.
+    const targetId =
+      post?.writerId ?? post?.userId ?? post?.memberId ?? post?.authorId;
+
+    if (!targetId) {
+      alert("작성자 ID 정보를 찾을 수 없어 차단할 수 없습니다.");
+      return;
+    }
+
+    if (
+      !window.confirm(
+        `${post.writerNickname}님을 차단하시겠습니까?\n차단하면 이 사용자의 글과 댓글이 더 이상 보이지 않습니다.`,
+      )
+    ) {
+      return;
+    }
+
+    try {
+      await blockPostAuthor(targetId);
+    } catch (err) {
+      console.error("차단 에러 상세:", err);
+      alert("차단에 실패했습니다. 이미 차단한 사용자일 수 있어요.");
+    }
+  };
+
+  const handleBlockCommentAuthor = async (writerNickname, writerId) => {
+    if (!window.confirm(`${writerNickname}님을 차단하시겠습니까?`)) return;
+    try {
+      await blockCommentAuthor(writerId);
+    } catch (err) {
+      alert("차단에 실패했습니다. 이미 차단한 사용자일 수 있어요.");
     }
   };
 
@@ -156,6 +199,17 @@ export default function BoardDetailPage() {
                   {
                     label: isDeletingPost ? "삭제 중..." : "삭제",
                     onClick: handleDeletePost,
+                    danger: true,
+                  },
+                ]}
+              />
+            )}
+            {!isMyPost && user && (
+              <MoreActionsMenu
+                actions={[
+                  {
+                    label: "차단하기",
+                    onClick: handleBlockPostAuthor,
                     danger: true,
                   },
                 ]}
@@ -248,6 +302,21 @@ export default function BoardDetailPage() {
                             {
                               label: "삭제",
                               onClick: () => handleDeleteComment(c.commentId),
+                              danger: true,
+                            },
+                          ]}
+                        />
+                      )}
+                      {!isMyComment && user && (
+                        <MoreActionsMenu
+                          actions={[
+                            {
+                              label: "차단하기",
+                              onClick: () =>
+                                handleBlockCommentAuthor(
+                                  c.writerNickname,
+                                  c.writerId,
+                                ),
                               danger: true,
                             },
                           ]}

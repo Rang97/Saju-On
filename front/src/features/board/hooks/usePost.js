@@ -23,5 +23,5 @@ export function usePost(postId) {
     fetchPost();
   }, [fetchPost]);
 
-  return { post, setPost, isLoading, error, refetch: fetchPost };
+  return { post, isLoading, error, refetch: fetchPost, setPost };
 }
