@@ -1,6 +1,4 @@
 package com.example.demo.domain.post.dto;
-
-import com.example.demo.domain.post.dto.CommentResponse;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -14,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PostDetailResponse {
     private Long postId;
+    private Long writerId;
     private String title;
     private String content;
     private String writerNickname; //유저 닉네임

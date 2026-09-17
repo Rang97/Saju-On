@@ -36,10 +36,21 @@
         </where>
     </select>
 
-    <!-- 3. 게시글 상세 조회 (PostDetailResponse DTO 순서: postId, title, content, writerNickname, viewCount, createdAt) -->
-    <select id="findPostDetail" resultType="com.example.demo.domain.post.dto.PostDetailResponse">
+    <!--3. 게시글 상세 조회-->
+    <resultMap id="PostDetailResultMap" type="com.example.demo.domain.post.dto.PostDetailResponse">
+        <id property="postId" column="postId"/>
+        <result property="writerId" column="writerId"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="writerNickname" column="writerNickname"/>
+        <result property="viewCount" column="viewCount"/>
+        <result property="createdAt" column="createdAt"/>
+    </resultMap>
+
+    <select id="findPostDetail" resultMap="PostDetailResultMap">
         SELECT
             p.post_id    AS postId,
+            p.writer_id  AS writerId,
             p.title      AS title,
             p.content    AS content,
             u.nickname   AS writerNickname,
