@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-
 import { useAuthStore } from "../store/authStore";
+import Logo from "../assets/logo.png";
 
 const navItems = [
   { label: "홈", to: "/" },
@@ -32,16 +32,16 @@ export default function Navbar() {
       {/* Logo */}
       <button
         onClick={() => navigate("/")}
-        className="flex items-center gap-2 font-bold text-xl tracking-widest"
+        className="flex items-center gap-3 font-bold text-2xl tracking-widest"
         style={{ fontFamily: "'Rajdhani', sans-serif", color: "#f0f0fa" }}
       >
         <span
-          className="w-8 h-8 rounded flex items-center justify-center text-sm font-black"
+          className="w-10 h-10 rounded-sm flex items-center justify-center text-sm font-black p-1.5"
           style={{ background: "linear-gradient(135deg, #261CC1, #3A9AFF)" }}
         >
-          ?
+          <img src={Logo} alt="Logo" />
         </span>
-        머하지?
+        SAJU-ON
       </button>
 
       {/* Desktop nav */}
