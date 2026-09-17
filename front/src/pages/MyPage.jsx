@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useAuthStore } from "../store/authStore";
 import GameSection from "../features/mypage/components/GameSection";
+import SajuGuideModal from "../features/mypage/components/SajuGuideModal";
 import { getGameCatalog } from "../features/mypage/api/gameApi";
 import {
   blankInput,
@@ -39,6 +40,7 @@ const pillars = [
 export default function MyPage() {
   const user = useAuthStore((state) => state.user);
   const [summary, setSummary] = useState(null);
+  const [guideOpen, setGuideOpen] = useState(false);
   const [savedInput, setSavedInput] = useState(null);
   const [form, setForm] = useState(blankInput);
   const [times, setTimes] = useState([]);
@@ -222,9 +224,20 @@ export default function MyPage() {
       <GameSection />
 
       <section className={panel} aria-labelledby="elements-title">
-        <h2 id="elements-title" className="text-xl font-semibold mb-5">
-          나의 오행 사주
-        </h2>
+        <div className="mb-5 flex items-center justify-between gap-3">
+          <h2 id="elements-title" className="text-xl font-semibold">
+            나의 오행 사주
+          </h2>
+          <button
+            type="button"
+            className="shrink-0 rounded border border-[#3A9AFF]/25 px-3 py-2 text-sm text-slate-300 transition-colors hover:bg-white/5 hover:text-white focus-visible:outline-2 focus-visible:outline-[#3A9AFF]"
+            aria-haspopup="dialog"
+            onClick={() => setGuideOpen(true)}
+          >
+            ⓘ 가이드
+          </button>
+        </div>
+        {guideOpen && <SajuGuideModal onClose={() => setGuideOpen(false)} />}
         {load.summary === "loading" ? (
           <p role="status">사주 정보를 불러오는 중입니다.</p>
         ) : load.summary === "error" ? (

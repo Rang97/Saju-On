@@ -1,0 +1,45 @@
+.saju-guide { position: relative; z-index: 100; }
+.saju-guide__backdrop { position: fixed; inset: 0; background: #06040fb3; backdrop-filter: blur(3px); animation: saju-guide-backdrop 350ms ease both; }
+.saju-guide__viewport { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 28px 22px; }
+.saju-guide__scroll { position: relative; width: 100%; max-width: 570px; color: #342c24; filter: drop-shadow(0 18px 28px #0005); }
+.saju-guide__paper { display: flex; flex-direction: column; max-height: calc(100dvh - 72px); margin: 0 10px; border-inline: 1px solid #d8c9ac; background: linear-gradient(90deg,#99733a16,transparent 13%,transparent 87%,#99733a20), repeating-linear-gradient(0deg,transparent 0,transparent 3px,#99733a05 4px),#f5ecd9; animation: saju-guide-unroll 1.2s cubic-bezier(.22,.7,.18,1) both; }
+.saju-guide__header { display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; gap: 8px; margin: 0 26px; padding: 22px 0 14px; border-bottom: 1px solid #d8c9ac; }
+.saju-guide__title { margin: 0; font-family: Batang, serif; font-size: 24px; font-weight: 600; letter-spacing: -.8px; }
+.saju-guide__close { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border-radius: 6px; background: transparent; color: #76634f; font-size: 28px; cursor: pointer; }
+.saju-guide__close:hover { background: #d8c9ac55; }
+.saju-guide__close:focus-visible, .saju-guide__body:focus-visible { outline: 2px solid #937024; outline-offset: 2px; }
+.saju-guide__body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 18px 26px 28px; scrollbar-color: #b59b72 transparent; }
+.saju-guide__intro { margin: 0 0 23px; color: #76634f; font-size: 14px; line-height: 1.8; }
+.saju-guide__element { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 22px; }
+.saju-guide__element > div { min-width: 0; }
+.saju-guide__symbol { display: grid; place-items: center; flex: 0 0 36px; height: 36px; border-radius: 50%; background: #e8e0cc; font-family: Batang, serif; font-size: 24px; }
+.saju-guide__element h3 { margin: 0 0 7px; font-size: 16px; font-weight: 600; line-height: 1.6; }
+.saju-guide__element h3 span { display: inline-block; margin-left: 8px; color: #76634f; font-size: 13px; font-weight: 400; }
+.saju-guide__element p { margin: 3px 0 0; font-size: 13px; line-height: 1.8; word-break: keep-all; overflow-wrap: anywhere; }
+.saju-guide__element b { color: #76634f; font-weight: 600; }
+.saju-guide__footer { padding-top: 17px; border-top: 1px solid #d8c9ac; font-size: 13px; line-height: 1.85; word-break: keep-all; overflow-wrap: anywhere; }
+.saju-guide__footer p { margin: 0 0 5px; }
+.saju-guide__footer .saju-guide__note { margin-top: 17px; color: #76634f; font-size: 12px; }
+.saju-guide__rod { position: absolute; left: 0; right: 0; z-index: 1; height: 16px; border-radius: 6px; background: linear-gradient(0deg,#735638,#b39260 30%,#e1c99b 64%,#b59767 85%,#8e6c43); box-shadow: 0 2px 4px #0004; pointer-events: none; }
+.saju-guide__rod::before, .saju-guide__rod::after { content: ""; position: absolute; top: -2px; width: 9px; height: 20px; border-radius: 3px; background: linear-gradient(0deg,#59432e,#b08f5d 55%,#765537); }
+.saju-guide__rod::before { left: -5px; }
+.saju-guide__rod::after { right: -5px; }
+.saju-guide__rod--top { top: -4px; animation: saju-guide-top 1.2s cubic-bezier(.22,.7,.18,1) both; }
+.saju-guide__rod--bottom { bottom: -4px; animation: saju-guide-bottom 1.2s cubic-bezier(.22,.7,.18,1) both; }
+.saju-guide__reveal { animation: saju-guide-text 650ms ease both; animation-delay: calc(600ms + var(--reveal-order, 0) * 110ms); }
+@keyframes saju-guide-backdrop { from { opacity: 0; } to { opacity: 1; } }
+@keyframes saju-guide-unroll { from { clip-path: inset(50% 0); } to { clip-path: inset(0); } }
+@keyframes saju-guide-top { from { top: calc(50% - 14px); } to { top: -4px; } }
+@keyframes saju-guide-bottom { from { bottom: calc(50% - 14px); } to { bottom: -4px; } }
+@keyframes saju-guide-text { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 480px) {
+  .saju-guide__viewport { padding-inline: 16px; }
+  .saju-guide__header { margin-inline: 17px; }
+  .saju-guide__body { padding-inline: 17px; }
+  .saju-guide__title { font-size: 22px; }
+  .saju-guide__element { gap: 9px; }
+  .saju-guide__element h3 span { display: block; margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .saju-guide__backdrop, .saju-guide__paper, .saju-guide__rod, .saju-guide__reveal { animation: none; }
+}
