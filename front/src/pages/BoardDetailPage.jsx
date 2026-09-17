@@ -7,6 +7,7 @@ import {
   useCommentEdit,
   useCommentDelete,
 } from "../features/board/hooks/useComments";
+import { getComments } from "../features/board/api/commentApi";
 import { useDeletePost } from "../features/board/hooks/usePostMutations";
 import MoreActionsMenu from "../features/board/components/MoreActionsMenu";
 import { formatRelativeTime } from "../features/board/utils/formatDate";
@@ -17,7 +18,12 @@ export default function BoardDetailPage() {
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
 
-  const { post, isLoading, error, refetch } = usePost(postId);
+  const { post, isLoading, error, refetch, setPost } = usePost(postId);
+
+  const refreshComments = async () => {
+    const comments = await getComments(postId);
+    setPost((prev) => (prev ? { ...prev, comments } : prev));
+  };
 
   const {
     content,
@@ -25,7 +31,7 @@ export default function BoardDetailPage() {
     submitComment,
     isSubmitting,
     error: commentError,
-  } = useCommentSubmit(postId, () => refetch());
+  } = useCommentSubmit(postId, refreshComments);
 
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editContent, setEditContent] = useState("");
@@ -33,11 +39,11 @@ export default function BoardDetailPage() {
     postId,
     () => {
       setEditingCommentId(null);
-      refetch();
+      refreshComments();
     },
   );
 
-  const { removeComment } = useCommentDelete(postId, () => refetch());
+  const { removeComment } = useCommentDelete(postId, refreshComments);
 
   const { removePost, isDeleting: isDeletingPost } = useDeletePost();
 
