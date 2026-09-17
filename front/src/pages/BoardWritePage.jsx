@@ -57,7 +57,7 @@ export default function BoardWritePage() {
               placeholder="게시글 제목을 입력하세요"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-4 py-3 rounded text-sm bg-[rgba(255,255,255,0.04)] border border-[rgba(58,154,255,0.15)] text-[#f0f0fa] placeholder-[rgba(240,240,250,0.28)] focus:outline-none focus:border-[#3A9AFF] transition-colors"
+              className="w-full px-4 py-3 rounded-sm text-sm bg-[rgba(255,255,255,0.04)] border border-[rgba(58,154,255,0.15)] text-[#f0f0fa] placeholder-[rgba(240,240,250,0.28)] focus:outline-none focus:border-[#3A9AFF] transition-colors"
             />
           </div>
 

@@ -20,7 +20,6 @@ const elementTabs = Object.keys(ELEMENT_META).map((key) => ({
 export default function HomePage() {
   const navigate = useNavigate();
   const sliderRef = useRef(null);
-
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/client";
+import { FiArrowLeft } from "react-icons/fi";
 
 // 궁합 유형 3종
 const chemistryOptions = [
@@ -84,7 +85,7 @@ export default function PartyCreatePage() {
       <select
         value={gameId}
         onChange={(e) => setGameId(e.target.value)}
-        className="w-full px-4 py-2.5 rounded text-sm outline-none"
+        className="w-full px-4 py-2.5 rounded-sm text-ms outline-none"
         style={{
           background: "rgba(38,28,193,0.14)",
           border: "1px solid rgba(58,154,255,0.35)",
@@ -123,37 +124,32 @@ export default function PartyCreatePage() {
       >
         <button
           onClick={() => navigate("/party")}
-          className="text-sm mb-3"
-          style={{ color: "#c4c4d6" }}
+          className="flex items-center gap-2 text-sm mb-8 py-2 px-3 rounded-sm
+                    bg-[#3A9AFF]/15 text-[#3A9AFF] font-bold border-[#3A9AFF]  hover:bg-[#261CC1]/40 transition-colors hover:cursor-pointer"
         >
-          ← 목록으로
+          <FiArrowLeft />
+          목록으로
         </button>
         <div
           style={{
             background: "rgba(255, 255, 255, 0.20)",
             border: "2px solid rgba(255,255,255,0.08)",
-            borderRadius: "20px",
-            padding: "40px",
+            borderRadius: "5px",
+            padding: "35px",
             boxShadow: "0 12px 40px rgba(0,0,0,0.5)",
           }}
         >
-          <p
-            className="text-xs uppercase tracking-widest mb-2"
-            style={{ color: "#3A9AFF" }}
-          >
+          <p className="text-xs uppercase tracking-widest mb-2 font-bold text-[#3A9AFF]">
             파티를 만들어 게임을 함께 즐기세요!
           </p>
-          <h1
-            className="text-4xl font-bold mb-10"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
-          >
+          <h1 className="text-4xl font-bold mb-10 tracking-tight font-['Rajdhani'] text-white">
             파티 생성
           </h1>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div>
               <label
-                className="block text-xs mb-2 font-extrabold"
+                className="block text-sm mb-2 font-bold text-gray-200"
                 style={{ color: "#c4c4d6" }}
               >
                 게임
@@ -162,17 +158,14 @@ export default function PartyCreatePage() {
             </div>
 
             <div>
-              <label
-                className="block text-xs font-extrabold mb-2"
-                style={{ color: "#c4c4d6" }}
-              >
+              <label className="block text-sm font-bold mb-2 text-gray-300">
                 파티 제목
               </label>
               <input
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="예) 다이아 랭크 듀오 구합니다"
-                className="w-full px-4 py-2.5 rounded text-sm outline-none"
+                className="w-full px-4 py-2.5 rounded-sm text-sm outline-none"
                 style={{
                   background: "rgba(255, 255, 255, 0.25)",
                   border: "1px solid rgba(255, 255, 255, 0.2)",
@@ -183,10 +176,7 @@ export default function PartyCreatePage() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label
-                  className="block text-xs font-extrabold mb-2"
-                  style={{ color: "#c4c4d6" }}
-                >
+                <label className="block text-sm font-bold mb-2 text-gray-300">
                   총 인원
                 </label>
                 <input
@@ -195,7 +185,7 @@ export default function PartyCreatePage() {
                   max={8}
                   value={totalSlots}
                   onChange={(e) => setTotalSlots(Number(e.target.value))}
-                  className="w-full px-4 py-2.5 rounded text-sm outline-none"
+                  className="w-full px-4 py-2.5 rounded-sm text-sm outline-none"
                   style={{
                     background: "rgba(255, 255, 255, 0.25)",
                     border: "1px solid rgba(255, 255, 255, 0.2)",
@@ -206,10 +196,7 @@ export default function PartyCreatePage() {
             </div>
 
             <div>
-              <label
-                className="block text-xs font-extrabold mb-2"
-                style={{ color: "#c4c4d6" }}
-              >
+              <label className="block text-xs font-bold mb-2 text-gray-300">
                 궁합 유형
               </label>
               <div className="flex gap-2">
@@ -218,7 +205,7 @@ export default function PartyCreatePage() {
                     key={opt.value}
                     type="button"
                     onClick={() => setChemistry(opt.value)}
-                    className="px-4 py-2 rounded text-sm font-medium transition-all"
+                    className="w-full h-10 rounded-sm text-sm font-medium transition-all"
                     style={
                       chemistry === opt.value
                         ? {
@@ -243,11 +230,7 @@ export default function PartyCreatePage() {
               type="submit"
               // 등록된 게임 없을 시 완료 버튼 못 누름
               disabled={hasNoGames}
-              className="mt-2 px-6 py-3 rounded text-sm font-semibold disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{
-                background: "linear-gradient(135deg, #261CC1, #1C0770)",
-                color: "#fff",
-              }}
+              className="mt-2 px-6 py-3 rounded-sm text-ms font-semibold disabled:opacity-40 disabled:cursor-not-allowed bg-[#F1FF5E] text-[#06040f] hover:brightness-110 transition-all cursor-pointer"
             >
               완료
             </button>

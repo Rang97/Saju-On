@@ -11,8 +11,6 @@ import {
 } from "../constants/fiveElements";
 import ErrorToast from "./ErrorToast";
 
-
-
 export default function PartyChatModal({ party, onClose, onLeave, onDelete }) {
   const token = useAuthStore((state) => state.token);
   const [messages, setMessages] = useState([]); // 메시지 배열
@@ -173,7 +171,7 @@ export default function PartyChatModal({ party, onClose, onLeave, onDelete }) {
         className="absolute bottom-6 right-6 flex items-stretch transition-all duration-300"
         style={{
           transform: visible ? "translateY(0)" : "translateY(24px)",
-          opacity: visible ? 0.9 : 0,
+          opacity: visible ? 1 : 0,
           border: "1px solid rgba(255,255,255,0.1)",
         }}
         onClick={(e) => e.stopPropagation()}
@@ -185,12 +183,10 @@ export default function PartyChatModal({ party, onClose, onLeave, onDelete }) {
             zIndex: 1,
             width: showDetail ? "260px" : "0px",
             background: "rgba(5,15,30,0.92)",
-            borderTop: showDetail ? "1px solid rgba(80,220,255,0.5)" : "none",
-            borderBottom: showDetail
-              ? "1px solid rgba(80,220,255,0.5)"
-              : "none",
-            borderLeft: showDetail ? "1px solid rgba(80,220,255,0.5)" : "none",
-            borderRight: showDetail ? "1px solid rgba(80,220,255,0.5)" : "none",
+            borderTop: showDetail ? "1px solid #3A9AFF" : "none",
+            borderBottom: showDetail ? "1px solid #3A9AFF" : "none",
+            borderLeft: showDetail ? "1px solid #3A9AFF" : "none",
+            borderRight: showDetail ? "1px solid #3A9AFF" : "none",
           }}
         >
           {/* 상태창 프레임 장식 — 모서리 브라켓 + STATUS 탭 */}
@@ -199,29 +195,29 @@ export default function PartyChatModal({ party, onClose, onLeave, onDelete }) {
               <span
                 className="absolute top-0 left-0 w-3.5 h-3.5 pointer-events-none"
                 style={{
-                  borderTop: "2px solid #7fe3ff",
-                  borderLeft: "2px solid #7fe3ff",
+                  borderTop: "2px solid #3A9AFF",
+                  borderLeft: "2px solid #3A9AFF",
                 }}
               />
               <span
                 className="absolute bottom-0 left-0 w-3.5 h-3.5 pointer-events-none"
                 style={{
-                  borderBottom: "2px solid #7fe3ff",
-                  borderLeft: "2px solid #7fe3ff",
+                  borderBottom: "2px solid #3A9AFF",
+                  borderLeft: "2px solid #3A9AFF",
                 }}
               />
               <span
                 className="absolute top-0 right-0 w-3.5 h-3.5 pointer-events-none"
                 style={{
-                  borderTop: "2px solid #7fe3ff",
-                  borderRight: "2px solid #7fe3ff",
+                  borderTop: "2px solid #3A9AFF",
+                  borderRight: "2px solid #3A9AFF",
                 }}
               />
               <span
                 className="absolute bottom-0 right-0 w-3.5 h-3.5 pointer-events-none"
                 style={{
-                  borderBottom: "2px solid #7fe3ff",
-                  borderRight: "2px solid #7fe3ff",
+                  borderBottom: "2px solid #3A9AFF",
+                  borderRight: "2px solid #3A9AFF",
                 }}
               />
               <span
@@ -250,7 +246,7 @@ export default function PartyChatModal({ party, onClose, onLeave, onDelete }) {
             ) : (
               <>
                 <p
-                  className="text-xs font-semibold text-center"
+                  className="text-sm font-semi text-center"
                   style={{ color: "rgba(80,220,255,0.8)" }}
                 >
                   오행 현황
@@ -260,10 +256,7 @@ export default function PartyChatModal({ party, onClose, onLeave, onDelete }) {
                   hoveredElement={hoveredElement}
                   onHover={setHoveredElement}
                 />
-                <p
-                  className="text-[13px] text-center"
-                  style={{ color: "#e8e8f0" }}
-                >
+                <p className="text-sm text-center" style={{ color: "#e8e8f0" }}>
                   {/* 많은 오행, 적은 오행 다른 문구 표시 */}
                   {chemistry.maxElements?.[0] === chemistry.minElements?.[0] ? (
                     "오행이 고르게 분포돼 있어요"
@@ -305,7 +298,7 @@ export default function PartyChatModal({ party, onClose, onLeave, onDelete }) {
                     return (
                       <div
                         key={key}
-                        className="flex-1 rounded-xl border flex flex-col items-center gap-1 px-2 py-3 transition-colors"
+                        className="flex-1 rounded-sm border flex flex-col items-center gap-1 px-2 py-3 transition-colors"
                         style={{
                           borderColor:
                             isHovered || isLacking
@@ -316,7 +309,7 @@ export default function PartyChatModal({ party, onClose, onLeave, onDelete }) {
                         onMouseEnter={() => setHoveredElement(key)}
                         onMouseLeave={() => setHoveredElement(null)}
                       >
-                        <span className="text-xs font-semibold">
+                        <span className="text-xs font-bold">
                           {ELEMENT_LABELS[key]}
                         </span>
                         <span className="text-xs">
@@ -326,17 +319,10 @@ export default function PartyChatModal({ party, onClose, onLeave, onDelete }) {
                     );
                   })}
                 </div>
-                <p
-                  className="text-[10px] text-center"
-                  style={{ color: "#e8e8f0" }}
-                >
+                <p className="text-sm text-center" style={{ color: "#e8e8f0" }}>
                   현재 {nowMemberCount}명 기준
                 </p>
-                <hr
-                  style={{
-                    color: "rgba(80,220,255,0.5)",
-                  }}
-                />
+                <hr />
                 {/* 파티원 조회 / 탈퇴 / 추방 */}
                 <div className="flex flex-col gap-1.5 mt-1">
                   {members.map((member) => {
@@ -529,12 +515,12 @@ export default function PartyChatModal({ party, onClose, onLeave, onDelete }) {
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(255,255,255,0.1)",
-                color: "#e8e8f0",
+                color: "#fffff",
               }}
             />
             <button
               type="submit"
-              className="brand-gradient-btn px-4 py-2 rounded text-sm font-semibold text-white"
+              className="px-4 py-2 rounded-sm text-sm font-bold bg-[#261CC1] text-white hover:bg-[#261CC1]/80"
             >
               전송
             </button>
