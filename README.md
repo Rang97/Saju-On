@@ -1,4 +1,4 @@
-# Saju Game Final Project
+# Saju-On
 
 사주 정보를 기반으로 게임 파티를 만들고, 참여하고, 파티원 간 오행 궁합을 확인할 수 있는 Spring Boot + MyBatis 백엔드 프로젝트입니다.
 
